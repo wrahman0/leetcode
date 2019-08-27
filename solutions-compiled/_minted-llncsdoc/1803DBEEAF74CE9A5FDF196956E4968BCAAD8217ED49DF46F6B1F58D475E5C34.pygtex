@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/**}
+\PYG{c+cm}{ * Definition for an interval.}
+\PYG{c+cm}{ * public class Interval \PYGZob{}}
+\PYG{c+cm}{ *     int start;}
+\PYG{c+cm}{ *     int end;}
+\PYG{c+cm}{ *     Interval() \PYGZob{} start = 0; end = 0; \PYGZcb{}}
+\PYG{c+cm}{ *     Interval(int s, int e) \PYGZob{} start = s; end = e; \PYGZcb{}}
+\PYG{c+cm}{ * \PYGZcb{}}
+\PYG{c+cm}{ */}
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{Solution} \PYG{o}{\PYGZob{}}
+    \PYG{k+kd}{public} \PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{n}{Interval}\PYG{o}{\PYGZgt{}} \PYG{n+nf}{merge}\PYG{o}{(}\PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{n}{Interval}\PYG{o}{\PYGZgt{}} \PYG{n}{intervals}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+        \PYG{k}{if} \PYG{o}{(}\PYG{n}{nums} \PYG{o}{==} \PYG{k+kc}{null} \PYG{o}{||} \PYG{n}{nums}\PYG{o}{.}\PYG{n+na}{length} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{o}{)} \PYG{k}{return}\PYG{o}{;}
+
+        \PYG{k+kt}{int} \PYG{n}{insertPos} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{o}{;}
+        \PYG{k}{for} \PYG{o}{(}\PYG{k+kt}{int} \PYG{n}{num}\PYG{o}{:} \PYG{n}{nums}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+            \PYG{k}{if} \PYG{o}{(}\PYG{n}{num} \PYG{o}{!=} \PYG{l+m+mi}{0}\PYG{o}{)} \PYG{n}{nums}\PYG{o}{[}\PYG{n}{insertPos}\PYG{o}{++]} \PYG{o}{=} \PYG{n}{num}\PYG{o}{;}
+        \PYG{o}{\PYGZcb{}}
+
+        \PYG{k}{while} \PYG{o}{(}\PYG{n}{insertPos} \PYG{o}{\PYGZlt{}} \PYG{n}{nums}\PYG{o}{.}\PYG{n+na}{length}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+            \PYG{n}{nums}\PYG{o}{[}\PYG{n}{insertPos}\PYG{o}{++]} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{o}{;}
+        \PYG{o}{\PYGZcb{}}
+    \PYG{o}{\PYGZcb{}}
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}

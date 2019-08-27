@@ -1,0 +1,34 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/**}
+\PYG{c+cm}{ * Definition for an interval.}
+\PYG{c+cm}{ * public class Interval \PYGZob{}}
+\PYG{c+cm}{ *     int start;}
+\PYG{c+cm}{ *     int end;}
+\PYG{c+cm}{ *     Interval() \PYGZob{} start = 0; end = 0; \PYGZcb{}}
+\PYG{c+cm}{ *     Interval(int s, int e) \PYGZob{} start = s; end = e; \PYGZcb{}}
+\PYG{c+cm}{ * \PYGZcb{}}
+\PYG{c+cm}{ */}
+\PYG{k+kd}{public} \PYG{k+kd}{class} \PYG{n+nc}{Solution} \PYG{o}{\PYGZob{}}
+    \PYG{k+kd}{public} \PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{n}{Interval}\PYG{o}{\PYGZgt{}} \PYG{n+nf}{merge}\PYG{o}{(}\PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{n}{Interval}\PYG{o}{\PYGZgt{}} \PYG{n}{intervals}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+        \PYG{n}{Collections}\PYG{o}{.}\PYG{n+na}{sort}\PYG{o}{(}\PYG{n}{intervals}\PYG{o}{,} \PYG{k}{new} \PYG{n}{Comparator}\PYG{o}{\PYGZlt{}}\PYG{n}{Interval}\PYG{o}{\PYGZgt{}()\PYGZob{}}
+            \PYG{n+nd}{@Override}
+            \PYG{k+kd}{public} \PYG{k+kt}{int} \PYG{n+nf}{compare}\PYG{o}{(}\PYG{n}{Interval} \PYG{n}{obj0}\PYG{o}{,} \PYG{n}{Interval} \PYG{n}{obj1}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+                \PYG{k}{return} \PYG{n}{obj0}\PYG{o}{.}\PYG{n+na}{start} \PYG{o}{\PYGZhy{}} \PYG{n}{obj1}\PYG{o}{.}\PYG{n+na}{start}\PYG{o}{;}
+            \PYG{o}{\PYGZcb{}}
+        \PYG{o}{\PYGZcb{});}
+
+        \PYG{n}{List}\PYG{o}{\PYGZlt{}}\PYG{n}{Interval}\PYG{o}{\PYGZgt{}} \PYG{n}{ret} \PYG{o}{=} \PYG{k}{new} \PYG{n}{ArrayList}\PYG{o}{\PYGZlt{}\PYGZgt{}();}
+        \PYG{n}{Interval} \PYG{n}{prev} \PYG{o}{=} \PYG{k+kc}{null}\PYG{o}{;}
+        \PYG{k}{for} \PYG{o}{(}\PYG{n}{Interval} \PYG{n}{inter} \PYG{o}{:} \PYG{n}{intervals}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+            \PYG{k}{if} \PYG{o}{(}  \PYG{n}{prev}\PYG{o}{==}\PYG{k+kc}{null} \PYG{o}{||} \PYG{n}{inter}\PYG{o}{.}\PYG{n+na}{start}\PYG{o}{\PYGZgt{}}\PYG{n}{prev}\PYG{o}{.}\PYG{n+na}{end} \PYG{o}{)} \PYG{o}{\PYGZob{}}
+                \PYG{n}{ret}\PYG{o}{.}\PYG{n+na}{add}\PYG{o}{(}\PYG{n}{inter}\PYG{o}{);}
+                \PYG{n}{prev} \PYG{o}{=} \PYG{n}{inter}\PYG{o}{;}
+            \PYG{o}{\PYGZcb{}} \PYG{k}{else} \PYG{k}{if} \PYG{o}{(}\PYG{n}{inter}\PYG{o}{.}\PYG{n+na}{end}\PYG{o}{\PYGZgt{}}\PYG{n}{prev}\PYG{o}{.}\PYG{n+na}{end}\PYG{o}{)} \PYG{o}{\PYGZob{}}
+                \PYG{c+c1}{// Modify the element already in list}
+                \PYG{n}{prev}\PYG{o}{.}\PYG{n+na}{end} \PYG{o}{=} \PYG{n}{inter}\PYG{o}{.}\PYG{n+na}{end}\PYG{o}{;}
+            \PYG{o}{\PYGZcb{}}
+        \PYG{o}{\PYGZcb{}}
+        \PYG{k}{return} \PYG{n}{ret}\PYG{o}{;}
+    \PYG{o}{\PYGZcb{}}
+\PYG{o}{\PYGZcb{}}
+\end{Verbatim}

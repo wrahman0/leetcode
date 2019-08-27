@@ -1,0 +1,288 @@
+\documentclass{llncs}
+\usepackage{llncsdoc}
+\usepackage{minted}
+\usepackage[T1]{fontenc}
+\usepackage{inconsolata}
+\usepackage{color}
+
+\definecolor{pblue}{rgb}{0.13,0.13,1}
+\definecolor{pgreen}{rgb}{0,0.5,0}
+\definecolor{pred}{rgb}{0.9,0,0}
+\definecolor{pgrey}{rgb}{0.46,0.45,0.48}
+\usepackage{listings}
+\lstset{language=Java,
+  showspaces=false,
+  showtabs=false,
+  breaklines=true,
+  showstringspaces=false,
+  breakatwhitespace=true,
+  commentstyle=\color{pgreen},
+  keywordstyle=\color{pblue},
+  stringstyle=\color{pred},
+  basicstyle=\ttfamily,
+  moredelim=[il][\textcolor{pgrey}]{\$\$},
+  moredelim=[is][\textcolor{pgrey}]{\%\%}{\%\%}
+}
+
+\begin{document}
+\markboth{Interview Preparation}{Interview Preparation}
+\thispagestyle{empty}
+\begin{flushleft}
+\LARGE\bfseries Author: Wasiur Rahman
+\end{flushleft}
+\rule{\textwidth}{1pt}
+\vspace{2pt}
+\begin{flushright}
+\Huge
+\begin{tabular}{@{}l}
+Interview Preparation \\
+{\Large Version 1.0}
+\end{tabular}
+\end{flushright}
+\rule{\textwidth}{1pt}
+\vfill
+\newpage
+\tableofcontents
+\newpage
+%
+\section{Yelp}
+\subsection{Merge Intervals}
+Given a collection of intervals, merge all overlapping intervals.
+For example,
+\begin{verbatim}
+Given [1,3],[2,6],[8,10],[15,18],
+return [1,6],[8,10],[15,18].
+\end{verbatim}
+
+The idea is to sort them based on their starting times. Then we look at all the intervals in increasing starting order. For each one, if we see that their end time is greater than or equal to the starting time of the previous one, we simply merge it.
+
+For instance, if we had [1,3], [2,6], we see that the starting time of the second interval is less than the end of the first interval. Thus we merge those intervals into [1, 6].
+
+Another edge case is that the intervals can be [1,3], [3, 6]. ie the end and starting times are equal. In that case we still want to merge the two intervals. We will take care of that scenario in the code.
+
+Finally, the benefit of the initial sort is that it guarantees that the starting of the first integer is always less than or equal to the second interval's starting. As a result, by merging the two intervals, we will never overwrite the starting of the initial interval.
+
+\begin{minted}{java}
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    public List<Interval> merge(List<Interval> intervals) {
+        Collections.sort(intervals, new Comparator<Interval>(){
+            @Override
+            public int compare(Interval obj0, Interval obj1) {
+                return obj0.start - obj1.start;
+            }
+        });
+
+        List<Interval> ret = new ArrayList<>();
+        Interval prev = null;
+        for (Interval inter : intervals) {
+            if (  prev==null || inter.start>prev.end ) {
+                ret.add(inter);
+                prev = inter;
+            } else if (inter.end>prev.end) {
+                // Modify the element already in list
+                prev.end = inter.end;
+            }
+        }
+        return ret;
+    }
+}
+\end{minted}
+
+\section{Facebook}
+\subsection{Move Zeroes}
+Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+
+For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].
+
+Note:
+You must do this in-place without making a copy of the array.
+Minimize the total number of operations.
+
+\begin{minted}{java}
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    public List<Interval> merge(List<Interval> intervals) {
+        if (nums == null || nums.length == 0) return;
+
+        int insertPos = 0;
+        for (int num: nums) {
+            if (num != 0) nums[insertPos++] = num;
+        }
+
+        while (insertPos < nums.length) {
+            nums[insertPos++] = 0;
+        }
+    }
+}
+\end{minted}
+
+\subsection{Palindrome}
+Given a string s, determine is you can scramble its letters to make its a palindrome.
+
+\subsection{Search Binary Rotated}
+Given a rotated, sorted array, and an element to be searched, write an efficient search function.
+
+\subsection{Search a given element in a binary tree (not bst)}
+Like title says.
+
+\subsection{Find the shift location in a sorted array}
+Find the shift location in an array with a single shift shuffle.
+
+\subsection{Select Kth Element}
+Find Kth largest value in an unordered array. Bonus points for complexity better than O(nlog(n)).
+
+\subsection{Set Powerset}
+Write a function to generate a set's powerset.
+
+\subsection{XML Parser}
+Given an XML string, return the parsed tree structure.
+
+\subsection{Small Fixed Map Search}
+Search google...
+
+\subsection{Snakes on a Plane}
+Other machines on your wifi network are consuming all available bandwidth. Figure out a way to make them stop without having access to their machines.
+
+\subsection{Sort using a custom alphabet}
+Sort an input of characters into a specific order.
+
+\subsection{Sorted Iterator over K Sorted Lists}
+Given K sorted lists of up to N elements in each list, return a sorted iterator over all the items.
+
+\subsection{Spell Check with Wildcard}
+This is a medium to difficult string processing question. There are a variety of reasonable solutions that require some familiarity with data structures.
+
+\subsection{Status Search}
+This question is best for infrastructure candidates who should have a good understanding of distributed systems. You probably dont want use this question if they are well versed with working with search. They should know the various trade-offs. You can ask this question for both experienced and new grad candidates as long as you calibrate differently.
+
+\subsection{Stock profit}
+This is a low pass filter question I use to quickly eliminate candidates. Its on the easier with a single aha insight that can easily be discovered once they have the brute force solution.
+
+\subsection{Store millions of items efficiently in memory whose values can be 0,1,2}
+We want to optimize mem space as much as possible.
+
+\subsection{strace causes programs to fail}
+Do this after
+
+\subsection{String regexp matcher simple}
+Write a regular expression matching function.
+
+\subsection{String reverse words}
+Given a string, return a string with the orders of the words reversed.
+
+\subsection{String strstr}
+Implement strstr in C.
+
+\subsection{Super Enumerator}
+Do this later. iOS.
+
+\subsection{System}
+Ask candidate to take something that they have already done and ask how to scale it to Facebook level.
+
+\subsection{Tail}
+Write a simple version of tail that prints out the last 10 lines in a file.
+
+\subsection{Task dependency duration}
+Given a dependency graph of tasks with a set duration, calculate the amount of time it takes to finish a task and all of its dependencies when you can 1. work on one task at a time, 2. work on infinite, 3. work on k tasks at a time.
+
+\subsection{Task scheduler}
+Given a list of input tasks to run, and the cooldown interval, output the minimun number of time slots required to run them.
+
+\subsection{Telnet port 80}
+What is this question asking?
+
+\subsection{The number of subsets with min + max <= k}
+For a given vector of integers and the integer k, find the number of non-empty subsets S such that min(S) + max(S) <= k.
+
+For example, for k=8, and vector [2,4,5,7], the solution is 5 and these are all the subsets that satisfy the requirement: [2], [4], [2,4], [2,4,5], [2,5]
+
+\subsection{Three non-overlapping intervals with maximal sum of elements}
+Given array of N positive integers...
+
+\subsection{Three non-overlapping intervals with maximal sum of elements}
+Given array of N positive integers
+1. Find interval of size k with the largest sum.
+2. Find 3 non-overlapping intervals, each of size k with the largest total sum.
+
+\subsection{Tic Tac Toe Winner}
+Implement the move method of tictactoe that returns whether the player's move had won. The candidate needs to define the state of the game and the move() method should take care of state manipulation and return whether the player made the move, has won the game.
+
+\subsection{Top 10 Listens}
+Imagine we want to build a product that shows a user's favorite songs recently. We've decided that we want to show the top 10 songs for a particular user over the past 7 days. Design the backend.
+
+\subsection{Trade ops case - apac licensed shipment}
+Wtf question
+
+\subsection{Tree Print all Paths}
+For a given binary tree, print paths from root to all leaf nodes, one path per line.
+
+\subsection{Tree Print by Levels}
+Print out a binary tree level by level on a separate line.
+
+\subsection{Tree to list}
+Given a binary tree made of these nodes, convert it, in-place (dont alloc new nodes) into a circular doubly linked list in the same order as an in-order traversal of the tree.
+
+\subsection{Trie String Match}
+Check if a word is valid given a trie.
+
+\subsection{Typeahead suggestions}
+Design a system to power typeahead suggestions for a site like google or youtube.
+
+\subsection{Type checking a program with arithmetic expressions, variables, and strings}
+wtf... do it later
+
+\subsection{UIE AdUnit}
+Use HTML/CSS to build a three col ad unit component
+
+\subsection{UIE Array Flatten}
+Builf a function that takes an array that may contain levels of nested arrays and returns a flattened version of the array.
+
+\subsection{UIE Pinterest}
+Build a url shortener service.
+
+\subsection{Unified address book}
+Design an application which manages contacts from multiple providers. For example, facebook, linkedin, gmail.
+
+\subsection{Uniformly pick random max integers in an array}
+Given an array of integers, return the index of one of the largest element, chosen uniformly at random.
+
+\subsection{Union of two lists of intervals on the real number line}
+Given two sorted lists of non-overlapping intervals on the real number line, return the union. It should also be sorted and contain exclusively non-overlapping intervals (as in a minimal number of intervals).
+
+\subsection{Unique Files}
+Warmup. Tests working with data structures as well as CLI args, opening files and managing exit codes.
+
+\subsection{Unknown server}
+The idea is you're given the root password to a system with no other knowledge of whats on the system. The idea is your friend gives you IP address and root password to their server and then runs away. You know nothing and need to discover as much as possible.
+
+\subsection{Unmount FS in use}
+Combined "restart webserver without impacting users" and "unmount FS in use". This is an experimental question being developed by ...
+
+\subsection{Validate BST}
+Given a binary tree with numeric values, determine if the tree is a valid Binary Search Tree.
+
+\subsection{Vmstat anomaly}
+A simple yet effective question. Paste some vmstat output into collabedit and ask them to tell you what they see. Another good warm up that is quick and can have reasonable signal.
+
+\subsection{Web browser no network}
+...
+
+
+\end{document}
